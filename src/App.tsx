@@ -1,25 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
 
-function App() {
+interface IQuestion {
+  category: string;
+  difficulty: string,
+  question: string, 
+  correctAnswer: string,
+  incorrectAnswers: string[]
+};
+const getQuestion = async () => {
+  const { data: { category, difficulty, question, correct_answer, incorrect_answers }} = await axios.get("https://opentdb.com/api.php?amount=1&type=multiple");
+  return {
+    category,
+    difficulty,
+    question,
+    correctAnswer: correct_answer,
+    incorrectAnswers: incorrect_answers
+  } as IQuestion;
+};
+
+interface IStartScreenProps {
+  onStartGameClick: (e: any) => any;
+}
+const StartScreen: React.FunctionComponent<IStartScreenProps> = ({ onStartGameClick }) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <h1>Travia</h1>
+      <button onClick={onStartGameClick}>Start Now</button>
+    </React.Fragment>
+  )
+}
+
+interface IQuestionScreenProps {
+  question: IQuestion;
+  onAnswerSelect: (e: any) => any;
+}
+const QuestionScreen: React.FunctionComponent<IQuestionScreenProps> = ({ question }) => {
+  return (
+    <React.Fragment>
+      <span dangerouslySetInnerHTML={{ __html: question.question}} />
+    </React.Fragment>
+  )
+}
+
+const App: React.FunctionComponent<{}> = () => {
+  return (
+    <React.Fragment>
+      <StartScreen onStartGameClick={() => console.log('clicked')}/>
+    </React.Fragment>
   );
 }
 
