@@ -9,7 +9,8 @@ interface IQuestion {
   incorrectAnswers: string[]
 };
 const getQuestion = async () => {
-  const { data: { category, difficulty, question, correct_answer, incorrect_answers }} = await axios.get("https://opentdb.com/api.php?amount=1&type=multiple");
+  const { data: { results }} = await axios.get("https://opentdb.com/api.php?amount=1&type=multiple");
+  const { category, difficulty, question, correct_answer, incorrect_answers } = results[0];
   return {
     category,
     difficulty,
@@ -33,7 +34,6 @@ const StartScreen: React.FunctionComponent<IStartScreenProps> = ({ onStartGameCl
 
 interface IQuestionScreenProps {
   question: IQuestion;
-  onAnswerSelect: (e: any) => any;
 }
 const QuestionScreen: React.FunctionComponent<IQuestionScreenProps> = ({ question }) => {
   return (
@@ -44,9 +44,21 @@ const QuestionScreen: React.FunctionComponent<IQuestionScreenProps> = ({ questio
 }
 
 const App: React.FunctionComponent<{}> = () => {
+  const [started, setStarted] = React.useState(false);
+  const [currentQuestion, setCurrentQuestion] = React.useState<IQuestion | null>(null);
+  const loadQuestion = async () => {
+    setStarted(true);
+    setCurrentQuestion(null);
+    setCurrentQuestion(await getQuestion());
+  }
   return (
     <React.Fragment>
-      <StartScreen onStartGameClick={() => console.log('clicked')}/>
+      {
+        started || <StartScreen onStartGameClick={loadQuestion} />
+      }
+      {
+        currentQuestion && <QuestionScreen question={currentQuestion} />
+      }
     </React.Fragment>
   );
 }
