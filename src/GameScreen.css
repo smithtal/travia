@@ -1,0 +1,60 @@
+.GameScreen {
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.GameScreen > .meta {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    justify-self: start;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    flex-wrap: wrap;
+}
+
+.GameScreen > .meta > div {
+    width: 50%;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.GameScreen > .game {
+    text-align: center;
+    width: 100%;
+}
+
+.GameScreen > .game > .question {
+    font-size: 2em;
+}
+
+.GameScreen > .game > .answers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.GameScreen > .game > .answers > .option {
+    width: 40%;
+    font-size: 1.5em;
+    padding: 40px 20px;
+    border: 2px solid black;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.GameScreen > .game > .answers > .option.incorrect.revealed {
+    border-color: red;
+}
+
+.GameScreen > .game > .answers > .option.correct.revealed {
+    border-color: green;
+}

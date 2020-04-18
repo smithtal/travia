@@ -1,0 +1,32 @@
+.StartScreen {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F7F7F7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.StartScreen > .logo {
+    max-width: 80%;
+}
+
+.StartScreen > .links {
+    justify-content: space-between;
+    display: flex;
+    width: 30%;
+    margin-top: 40px;
+}
+
+@media only screen and (max-width: 414px) {
+    .StartScreen > .links {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .StartScreen > .links {
+        width: 60%;
+    }
+}
