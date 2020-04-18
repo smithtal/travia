@@ -129,7 +129,7 @@ const openSourceCode = () => {
 
 return (
   <div className="App">
-    <img src={traviaLogo} />
+    <img src={traviaLogo} className="logo"/>
     <div className="links">
       <Button text='Start Game' onClick={loadQuestion} />
       <Button text='Source Code' onClick={openSourceCode} />

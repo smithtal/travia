@@ -21,9 +21,25 @@
     flex-direction: column;
 }
 
+.App > .logo {
+    max-width: 80%;
+}
+
 .App > .links {
     justify-content: space-between;
     display: flex;
     width: 30%;
     margin-top: 40px;
+}
+
+@media only screen and (max-width: 414px) {
+    .App > .links {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .App > .links {
+        width: 60%;
+    }
 }

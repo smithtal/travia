@@ -8,3 +8,9 @@
 .Button:hover{
     text-decoration: underline;
 }
+
+@media only screen and (max-width: 414px) {
+    .Button{
+        font-size: 1em;
+    }
+}
