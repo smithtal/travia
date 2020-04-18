@@ -18,7 +18,7 @@ const App: React.FunctionComponent<{}> = () => {
   const [started, setStarted] = React.useState(false);
   const [currentQuestion, setCurrentQuestion] = React.useState<IQuestion | null>(null);
   const [score, setScore] = React.useState(0);
-  const [time, setTime] = React.useState(300);
+  const [time, setTime] = React.useState(60);
 
   useInterval(() => {
     if(time > 0){

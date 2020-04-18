@@ -24,15 +24,17 @@ const GameScreen: React.FunctionComponent<IGameScreenProps> = ({
         shuffle([...question.incorrectAnswers, question.correctAnswer])
       );
     }
-    setSelectedAnswer(null);
+    setSelectedAnswer(false);
   }, [question]);
 
-  const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(
-    null
+  const [selectedAnswer, setSelectedAnswer] = React.useState<boolean>(
+      false
   );
   const handleAnswerSelect = (answer: string) => (e: any) => {
-    setSelectedAnswer(answer);
+    if(!selectedAnswer){
+    setSelectedAnswer(true);
     onAnswer(answer);
+    }
   };
 
     return (
@@ -56,8 +58,8 @@ const GameScreen: React.FunctionComponent<IGameScreenProps> = ({
                     answer === question.correctAnswer ? "correct" : "incorrect"
                   } ${selectedAnswer && "revealed"} `}
                   key={index}
-                  dangerouslySetInnerHTML={{ __html: answer }}
                   onClick={handleAnswerSelect(answer)}
+                  dangerouslySetInnerHTML={{__html: answer}}
                 />
               ))}
             </div>
