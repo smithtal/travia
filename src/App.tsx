@@ -4,6 +4,8 @@ import shuffle from "lodash.shuffle";
 import useInterval from "@use-it/interval";
 
 import "./App.css";
+import traviaLogo from "./travia-logo.svg";
+import Button from './Button';
 
 interface IQuestion {
   category: string;
@@ -63,6 +65,15 @@ const QuestionScreen: React.FunctionComponent<IQuestionScreenProps> = ({ questio
   )
 }
 
+interface IGameOverScreeProps {
+  score: number;
+}
+
+const GameOverScreen: React.FunctionComponent<IGameOverScreeProps> = ({ score }) => {
+  return (
+  <h1>Your Score is: {score}</h1>
+  )
+}
 const App: React.FunctionComponent<{}> = () => {
   const [started, setStarted] = React.useState(false);
   const [currentQuestion, setCurrentQuestion] = React.useState<IQuestion | null>(null);
@@ -70,7 +81,9 @@ const App: React.FunctionComponent<{}> = () => {
   const [time, setTime] = React.useState(300);
 
   useInterval(() => {
-    setTime(time - 1);
+    if(time > 0){
+      setTime(time - 1);
+    }
   }, 1000)
 
   const loadQuestion = async () => {
@@ -92,22 +105,37 @@ const App: React.FunctionComponent<{}> = () => {
     }, 1000);
   }
 
-  return (
-    <React.Fragment>
-      { started && 
-      <React.Fragment>
-        <div>Time: {time}</div>
-        <div>Score: {score}</div>
-        </React.Fragment>
-        }
-      {
-        started || <StartScreen onStartGameClick={loadQuestion} />
-      }
-      {
-        currentQuestion && <QuestionScreen question={currentQuestion} onAnswer={handleAnswer}  />
-      }
-    </React.Fragment>
-  );
+//   return (
+//     time <= 0 ? <GameOverScreen score={score} /> : <React.Fragment>
+//       { started && 
+//       <React.Fragment>
+//         <div>Time: {time}</div>
+//         <div>Score: {score}</div>
+//         </React.Fragment>
+//         }
+//       {
+//         started || <StartScreen onStartGameClick={loadQuestion} />
+//       }
+//       {
+//         currentQuestion && <QuestionScreen question={currentQuestion} onAnswer={handleAnswer}  />
+//       }
+//     </React.Fragment>
+//   );
+// }
+
+const openSourceCode = () => {
+  window.location.href = 'https://github.com/smithtal/travia'
+}
+
+return (
+  <div className="App">
+    <img src={traviaLogo} />
+    <div className="links">
+      <Button text='Start Game' onClick={loadQuestion} />
+      <Button text='Source Code' onClick={openSourceCode} />
+    </div>
+  </div>
+)
 }
 
 export default App;

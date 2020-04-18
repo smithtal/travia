@@ -1,0 +1,10 @@
+.Button {
+    color: #224FD7;
+    font-size: 2em;
+    cursor: pointer;
+    font-family: 'Sanchez', serif;
+}
+
+.Button:hover{
+    text-decoration: underline;
+}

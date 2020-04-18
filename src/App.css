@@ -10,3 +10,20 @@
 .option.revealed.incorrect {
     border: 3px solid red;
 }
+
+.App {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F7F7F7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.App > .links {
+    justify-content: space-between;
+    display: flex;
+    width: 30%;
+    margin-top: 40px;
+}
