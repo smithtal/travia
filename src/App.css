@@ -1,0 +1,12 @@
+.option{
+    border: none;
+    cursor: pointer;
+}
+
+.option.revealed.correct {
+    border: 3px solid green;
+}
+
+.option.revealed.incorrect {
+    border: 3px solid red;
+}
