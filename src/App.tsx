@@ -45,29 +45,11 @@ const App: React.FunctionComponent<{}> = () => {
     }, 1000);
   }
 
-//   return (
-//     time <= 0 ? <GameOverScreen score={score} /> : <React.Fragment>
-//       { started && 
-//       <React.Fragment>
-//         <div>Time: {time}</div>
-//         <div>Score: {score}</div>
-//         </React.Fragment>
-//         }
-//       {
-//         started || <StartScreen onStartGameClick={loadQuestion} />
-//       }
-//       {
-//         currentQuestion && <QuestionScreen question={currentQuestion} onAnswer={handleAnswer}  />
-//       }
-//     </React.Fragment>
-//   );
-// }
-
 
 return (
   <div className="App">
     {started || <StartScreen loadQuestion={loadQuestion}/>}
-    { started && time > 0 && <GameScreen question={currentQuestion} />}
+    { started && time > 0 && <GameScreen question={currentQuestion} score={score} time={time} onAnswer={handleAnswer} />}
   </div>
 )
 }
