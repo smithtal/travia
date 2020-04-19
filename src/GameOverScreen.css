@@ -1,0 +1,9 @@
+.GameOver {
+    text-align: center;
+}
+
+.GameOver > h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 3.5em;
+}

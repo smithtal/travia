@@ -5,20 +5,14 @@ import { IQuestion, getQuestion } from './questions';
 
 import "./App.css";
 import GameScreen from './GameScreen';
+import GameOverScreen from "./GameOverScreen"
 
-interface IGameOverScreeProps {
-  score: number;
-}
-const GameOverScreen: React.FunctionComponent<IGameOverScreeProps> = ({ score }) => {
-  return (
-  <h1>Your Score is: {score}</h1>
-  )
-}
 const App: React.FunctionComponent<{}> = () => {
+  const GAME_TIME = 300;
   const [started, setStarted] = React.useState(false);
   const [currentQuestion, setCurrentQuestion] = React.useState<IQuestion | null>(null);
   const [score, setScore] = React.useState(0);
-  const [time, setTime] = React.useState(60);
+  const [time, setTime] = React.useState(GAME_TIME);
 
   useInterval(() => {
     if(time > 0){
@@ -45,11 +39,18 @@ const App: React.FunctionComponent<{}> = () => {
     }, 1000);
   }
 
+  const resetGame = () => {
+    setScore(0);
+    setTime(GAME_TIME);
+    setStarted(true);
+  }
+
 
 return (
   <div className="App">
     {started || <StartScreen loadQuestion={loadQuestion}/>}
     { started && time > 0 && <GameScreen question={currentQuestion} score={score} time={time} onAnswer={handleAnswer} />}
+    { time === 0 && <GameOverScreen score={score} resetGame={resetGame}/>}
   </div>
 )
 }
