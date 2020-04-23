@@ -1,0 +1,31 @@
+Description: >
+  Travis Smith/Travia 2020
+  Resources for Travia application 
+
+Resources:
+
+    EKSCluster:
+        Type: AWS::EKS::Cluster
+        Properties:
+            Name: Travia
+            ResourcesVpcConfig:
+                SubnetIds:
+                    - Fn::ImportValue: Travia-PRIV1-SN
+                    - Fn::ImportValue: Travia-PRIV2-SN
+                    - Fn::ImportValue: Travia-PRIV3-SN
+            RoleArn: arn:aws:iam::532414289363:role/EKSManagement
+    
+    NodeGroup:
+        Type: AWS::EKS::Nodegroup
+        Properties:
+            AmiType: AL2_x86_64
+            ClusterName: Travia
+            ForceUpdateEnabled: true
+            InstanceTypes:
+                - t3.medium
+            NodegroupName: TraviaNodeGroup
+            NodeRole: arn:aws:iam::532414289363:role/AWSNodeRole
+            Subnets:
+                - Fn::ImportValue: Travia-PRIV1-SN
+                - Fn::ImportValue: Travia-PRIV2-SN
+                - Fn::ImportValue: Travia-PRIV3-SN
