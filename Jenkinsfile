@@ -25,5 +25,13 @@ pipeline {
                 )
             }
         }
+        stage('Deploy'){
+            steps{
+                sh "sed -i 's/<tag>/${GIT_COMMIT}/' ./kubernetes/deployment.yml"
+                sh "kubectl apply -f ./kubernetes/deployment.yml"
+                sh "kubectl apply -f ./kubernetes/service.yml"
+                sh "kubectl apply -f ./kubernetes/ingress.yml"
+            }
+        }
     }
 }

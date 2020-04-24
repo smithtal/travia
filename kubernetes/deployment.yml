@@ -13,7 +13,7 @@ spec:
         app: travia
     spec:
       containers:
-      - image: travissmith94/travia:latest
+      - image: travissmith94/travia:<tag>
         imagePullPolicy: Always
         name: travia
         ports:
