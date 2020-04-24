@@ -40,5 +40,10 @@
         <li>Deploy</li>
         This step sets the tag within the kubernetes deployment manifest within the kubernetes folder of this repository to the value latest push docker image and applies all kubernetes manifests within the folder to the EKS Cluster using kubectl.
     </ol>
+    <h2>Results</h2>
+    Kubernetes pods after a successful deployment.
+    <img src="./deployment.png" />
+    EC2 Console with resources used to build and host this project.
+    <img src="./ec2 console.png"/>
 </body>
 </html>
