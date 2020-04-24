@@ -18,8 +18,10 @@ pipeline {
                             cfnUpdate(stack: 'travia-cluster', file: "./cloudformation/cluster.yml")
                         }
                     },
-                    buildDockerImage: {
-                        sh "docker build . -t travissmith94/travia:${GIT_COMMIT}"
+                    pushNewDockerImage: {
+                        def app = docker.build("travissmith94/travia")
+                        app.push("${GIT_COMMIT}")
+                        app.push("latest")
                     }
                 )
             }
