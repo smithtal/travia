@@ -19,9 +19,12 @@ pipeline {
                         }
                     },
                     pushNewDockerImage: {
-                        def app = docker.build("travissmith94/travia")
-                        app.push("${GIT_COMMIT}")
-                        app.push("latest")
+                        docker.withRegistry('registry.hub.docker.com', 'docker-hub'){
+                            def app = docker.build("travissmith94/travia")
+                            app.push("${GIT_COMMIT}")
+                            app.push("latest")
+                        }
+
                     }
                 )
             }
