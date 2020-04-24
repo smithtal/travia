@@ -1,12 +1,15 @@
 pipeline {
     agent any
+    environment {
+        GIT_COMMIT = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+    }
     stages {
         stage('Lint') {
             steps{
                 sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
             }
         }
-        stage('Build'){
+        stage('Upgrade infrastructure'){
             steps{
                 parallel(
                     updateCloudFormationStack: {
@@ -16,8 +19,7 @@ pipeline {
                         }
                     },
                     buildDockerImage: {
-                        gitCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-                        sh 'docker build . -t travissmith94/travia:$gitCommit'
+                        sh "docker build . -t travissmith94/travia:${GIT_COMMIT}"
                     }
                 )
             }
