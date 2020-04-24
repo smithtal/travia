@@ -6,4 +6,4 @@ RUN ["npm", "run", "build"]
 
 FROM nginx:1.17.0
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html
-EXPISE 80
+EXPOSE 80

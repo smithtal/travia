@@ -1,44 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<html>
+<body>
+    <img src="./logo.svg" style="display:block; margin: auto; padding: 40px;" />
+    <p>Travia is a simple trivia game implemented as the final project of the <a href="https://www.udacity.com/course/cloud-dev-ops-nanodegree--nd9991">Udacity Cloud Dev Ops Nanodegree</a>.</p>
+    <h2>The Game</h2>
+    <p>The objective of the game is to gain as many points as possible within 5 minutes. Players are awarded points for each question answered. The number of points awarded dependeds on the difficulty of the question. As in the table: </p>
+    <table>
+     <tr>
+        <td>Easy</td>
+        <td>1 point</td>
+     </tr>
+     <tr>
+        <td>Medium</td>
+        <td>2 points</td>
+     </tr>
+     <tr>
+        <td>Hard</td>
+        <td>3 points</td>
+     </tr>
+    </table>
+    <h2>Implementation</h2>
+    <p>The application is built using TypeScript and ReactJS. The questions are pulled from <a href="https://opentdb.com/">Open Trivia Database</a>.</p>
+    <h2>Docker</h2>
+    <p>The Dockerfile in this repository makes use of multi-stage builds to first build the application using node and then deploy the production-ready build on an Nginx instance. Built docker images are pushed to <a href="https://hub.docker.com/repository/docker/travissmith94/travia">Dockerhub</a>.</p>
+    <h2>CloudFormation</h2>
+    <p>Within the cloudformation folder of this repository is a pair of yml files used to provision the infrastructure for the <a href="https://aws.amazon.com/eks/">Amazon EKS</a> Cluster that will run this application.</p>
+    <h2>Kubernetes</h2>
+    <p>The yml files within the kubernetes folder of this repository will deploy the version of this application when applied to a Kubernetes cluster. <code>&#x3C;tag&#x3E;</code> must be replaced by the version of the application to be deployed.</p>
+    <h2>Jenkins</h2>
+    <p>The Jenkinsfile included in this repository describes a pipeline used to build and deploy this application.</p>
+    <img src="./Jenkins-success.png"/>
+    <h3>Steps</h3>
+    <ol>
+        <li>Linting</li>
+        <p>In the linting step <a href="https://github.com/hadolint/hadolint">Hadolint</a> is used to lint the Dockerfile.</p>
+        <p>Given an error in the Dockerfile, such as the incorrectly spelt <code>EXPOSE below.</code><img src="./error-docker.png"/>The Jenkins build will report a failure.</p>
+        <img src="./linting-failure.png"></img>
+        <li>Upgrade Infrastructure</li>
+        <p>This step completes 2 tasks in parallel. It updates the CloudFormation stacks with any changes that have been made to the templates and it builds and pushes a new version of the Docker image</p>
+        <li>Deploy</li>
+        This step sets the tag within the kubernetes deployment manifest within the kubernetes folder of this repository to the value latest push docker image and applies all kubernetes manifests within the folder to the EKS Cluster using kubectl.
+    </ol>
+</body>
+</html>
