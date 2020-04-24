@@ -18,13 +18,9 @@ pipeline {
                             cfnUpdate(stack: 'travia-cluster', file: "./cloudformation/cluster.yml")
                         }
                     },
-                    pushNewDockerImage: {
-                        docker.withRegistry('registry.hub.docker.com', 'docker-hub'){
-                            def app = docker.build("travissmith94/travia")
-                            app.push("${GIT_COMMIT}")
-                            app.push("latest")
-                        }
-
+                    buildDockerImage: {
+                        sh "docker build . -t travissmith94/travia:${GIT_COMMIT}"
+                        sh "docker push travissmith94/travia:${GIT_COMMIT}"
                     }
                 )
             }
