@@ -8,9 +8,10 @@ pipeline {
         }
         stage('Update Infrastructure'){
             steps{
-                sh 'cd ./cloudformation'
-                sh 'aws cloudformation update-stack --stack-name travia-network --template-body file://network.yml --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" --region=us-east-2'
-                sh 'aws cloudformation update-stack --stack-name travia-cluster --template-body file://cluster.yml --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" --region=us-east-2'
+                withAWS(region: 'us-east-2', credentials: 'aws-credentials'){
+                    cfnUpdate(stack: 'travia-network', file: "./cloudformation/network.yml")
+                    cfnUpdate(stack: 'travia-cluster', file: "./cloudformation/cluster.yml")
+                }
             }
         }
     }
