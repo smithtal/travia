@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travia
+spec:
+  selector:
+    matchLabels:
+      app: travia
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: travia
+    spec:
+      containers:
+      - image: travissmith94/travia:latest
+        imagePullPolicy: Always
+        name: travia
+        ports:
+        - containerPort: 80
