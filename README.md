@@ -3,6 +3,7 @@
     <img src="./logo.svg" style="display:block; margin: auto; padding: 40px;" />
     <p>Travia is a simple trivia game implemented as the final project of the <a href="https://www.udacity.com/course/cloud-dev-ops-nanodegree--nd9991">Udacity Cloud Dev Ops Nanodegree</a>.</p>
     <h2>The Game</h2>
+    <a href="https://travia.travisalexandersmith.me/">Live Demo</a>
     <p>The objective of the game is to gain as many points as possible within 5 minutes. Players are awarded points for each question answered. The number of points awarded dependeds on the difficulty of the question. As in the table: </p>
     <table>
      <tr>
